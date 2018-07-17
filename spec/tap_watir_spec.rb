@@ -62,4 +62,61 @@ RSpec.describe TapWatir do
     end
   end
 
+  context with "ios" do
+    xit "opens Browser on Mobile Device" do
+      opts = {
+          url: 'http://localhost:4723/wd/hub',
+          platformVersion: "11.4",
+          deviceName: "iPhone X",
+          platformName: "iOS",
+          browserName: "Safari"
+      }
+
+      app = TapWatir::MobileBrowser.new(url:opts[:url],desired_capabilities:opts)
+      app.goto "a.testaddressbook.com"
+      expect(app.title).to eq ("Address Book")
+      # app.wait('20')
+      app.close
+
+    end
+
+    it "opens Native App Locally" do
+      opts = {
+          url: 'http://localhost:4723/wd/hub',
+          # platformVersion: "11.4",
+          platformName: "iOS",
+          # deviceName: "iPhone X",
+          # automationName: "XCUITest",
+          app: "/Users/prakharrawat/Documents/Address_Book.ipa"
+          # app: "https://github.com/address-book/address_book_ios/blob/master/Address_Book.ipa"
+      }
+      newUrl = opts.delete(:url)
+      app = TapWatir::MobileBrowser.new(url:newUrl,desired_capabilities:opts)
+      app.wait 2
+      # app.screenshot
+      app.quit
+    end
+    it "opens Native App EmuSim" do
+      opts = {
+          platformName: "iOS",
+          platformVersion: "11.0",
+          deviceName: "iPhone X Simulator",
+          app: "sauce-storage:log.ipa",
+          buildName: "Native and Hybrid test on iOS Sauce",
+          url: "http://username:access_key@ondemand.saucelabs.com:80/wd/hub",
+          name: "iOS Tests on EmuSIm",
+          # browserName: "Safari",
+          # appiumVersion: "1.6.2",
+          sauce_username:   ENV['SAUCE_LABS'] ? ENV['SAUCE_USERNAME'] : nil,
+          sauce_access_key: ENV['SAUCE_LABS'] ? ENV['SAUCE_ACCESS_KEY'] : nil,
+
+      }
+      newUrl = opts.delete(:url)
+      app  = TapWatir::MobileBrowser.new(url:newUrl,desired_capabilities:opts)
+      app.close
+    end
+    xit "opens Native App Real Device Cloud"
+
+  end
+
 end
