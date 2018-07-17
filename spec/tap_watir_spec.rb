@@ -92,13 +92,6 @@ RSpec.describe TapWatir do
       app = TapWatir::App.new(caps: opts)
       expect(app.driver).to be_a(Appium::Core::Base::Driver)
       app.quit
-
-
-
-
-
-
-
     end
 
     it "opens Native App EmuSim" do
