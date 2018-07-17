@@ -1,6 +1,7 @@
 RSpec.describe TapWatir do
 
   context "with Android" do
+
     it "opens Browser on Mobile Device" do
       opts = {url: 'http://localhost:4723/wd/hub',
               platformName: 'Android',
@@ -62,8 +63,8 @@ RSpec.describe TapWatir do
     end
   end
 
-  context with "ios" do
-    xit "opens Browser on Mobile Device" do
+  context "with iOS" do
+    it "opens Browser on Mobile Device" do
       opts = {
           url: 'http://localhost:4723/wd/hub',
           platformVersion: "11.4",
@@ -72,30 +73,34 @@ RSpec.describe TapWatir do
           browserName: "Safari"
       }
 
-      app = TapWatir::MobileBrowser.new(url:opts[:url],desired_capabilities:opts)
-      app.goto "a.testaddressbook.com"
-      expect(app.title).to eq ("Address Book")
-      # app.wait('20')
-      app.close
+      browser = TapWatir::MobileBrowser.new(url: opts[:url],desired_capabilities: opts)
+      browser.goto "a.testaddressbook.com"
+      expect(browser.title).to eq ("Address Book")
+      browser.close
 
     end
 
-    it "opens Native App Locally" do
+    it "opens Native/Hybrid App Locally" do
       opts = {
           url: 'http://localhost:4723/wd/hub',
-          # platformVersion: "11.4",
+          platformVersion: "11.4",
           platformName: "iOS",
-          # deviceName: "iPhone X",
-          # automationName: "XCUITest",
+          deviceName: "iPhone X",
           app: "/Users/prakharrawat/Documents/Address_Book.ipa"
-          # app: "https://github.com/address-book/address_book_ios/blob/master/Address_Book.ipa"
       }
-      newUrl = opts.delete(:url)
-      app = TapWatir::MobileBrowser.new(url:newUrl,desired_capabilities:opts)
-      app.wait 2
-      # app.screenshot
+
+      app = TapWatir::App.new(caps: opts)
+      expect(app.driver).to be_a(Appium::Core::Base::Driver)
       app.quit
+
+
+
+
+
+
+
     end
+
     it "opens Native App EmuSim" do
       opts = {
           platformName: "iOS",
@@ -115,7 +120,9 @@ RSpec.describe TapWatir do
       app  = TapWatir::MobileBrowser.new(url:newUrl,desired_capabilities:opts)
       app.close
     end
-    xit "opens Native App Real Device Cloud"
+    it "opens Native App Real Device Cloud" do
+
+    end
 
   end
 
