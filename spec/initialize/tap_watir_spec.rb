@@ -1,3 +1,6 @@
+require 'rspec/expectations'
+require 'rspec'
+
 RSpec.describe TapWatir do
 
   describe "#initialize" do
@@ -26,12 +29,7 @@ RSpec.describe TapWatir do
                 app: "https://github.com/address-book/mobile_apps/blob/master/AddressBook.apk?raw=true"}
 
         app = TapWatir::App.new(caps: opts)
-        el1 = app.element(xpath: "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.webkit.WebView/android.webkit.WebView/android.view.View[1]/android.widget.Button")
-        el1.exist?
-        # el2=app.
-        # $app.element(id: "android:id/content")
-
-        # expect(app.driver).to be_a(Appium::Core::Base::Driver)
+        app.element(xpath: "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.webkit.WebView/android.webkit.WebView/android.view.View[1]/android.widget.Button").exist?
         app.quit
       end
 
