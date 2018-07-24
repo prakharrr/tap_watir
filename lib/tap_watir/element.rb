@@ -13,11 +13,5 @@ module TapWatir
     def wd
       @element || locate
     end
-
-    def exist?
-      if @element
-        return false
-      end
-    end
   end
 end

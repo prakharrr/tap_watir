@@ -30,6 +30,7 @@ RSpec.describe TapWatir do
 
         app = TapWatir::App.new(caps: opts)
         app.element(xpath: "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.webkit.WebView/android.webkit.WebView/android.view.View[1]/android.widget.Button").exist?
+        expect(app.driver).to be_a(Appium::Core::Base::Driver)
         app.quit
       end
 
