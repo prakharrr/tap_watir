@@ -1,8 +1,6 @@
 require "watir"
 require 'appium_lib_core'
 require 'appium/driver'
-require 'tap_watir/element'
-
 
 module TapWatir
   class App
@@ -19,9 +17,6 @@ module TapWatir
     end
     alias_method :close, :quit
 
-    def element(selector)
-      Element.new(driver,selector)
-    end
   end
 
   class MobileBrowser < Watir::Browser
