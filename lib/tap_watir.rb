@@ -1,10 +1,15 @@
-require "watir"
+# frozen_string_literal: true
+
+require 'watir'
 require 'appium_lib_core'
 require 'appium/driver'
+require 'tap_watir/element'
 
 module TapWatir
+  #
+  # For driving a native application or or a native app context
+  #
   class App
-
     attr_accessor :driver
 
     def initialize(opts)
@@ -15,7 +20,11 @@ module TapWatir
     def quit
       @driver.quit
     end
-    alias_method :close, :quit
+    alias close quit
+
+    def element(selector)
+      Element.new(driver, selector)
+    end
 
     def method_missing(method_name, *arguments, &block)
       if driver.respond_to? method_name
@@ -25,11 +34,14 @@ module TapWatir
       end
     end
 
-    def respond_to?(method_name, include_private = false)
+    def respond_to_missing?(method_name, include_private = false)
       driver.respond_to?(method_name) || super
     end
   end
 
+  #
+  # For driving a mobile browser or a webview context
+  #
   class MobileBrowser < Watir::Browser
     def initialize(opts)
       @browser = super Selenium::WebDriver.for(:remote, opts)
