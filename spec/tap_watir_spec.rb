@@ -10,7 +10,10 @@ RSpec.describe TapWatir::App do
 
   describe '#element' do
     it 'returns a TapWatir Element' do
-      expect($app.element).to be_a TapWatir::Element
+      expect($app.element(id: 'com.address.book:id/progressBar')).to be_a TapWatir::Element
+    end
+    it 'checks if the element exists' do
+      expect($app.element(id: 'com.address.book:id/progressBar')).to exist
     end
   end
 end
